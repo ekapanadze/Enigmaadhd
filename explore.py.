@@ -1,0 +1,8 @@
+import pandas as pd
+
+url = "https://raw.githubusercontent.com/MICA-MNI/ENIGMA/master/enigmatoolbox/datasets/summary_statistics/adhdadult_case-controls_CortThick.csv"
+df = pd.read_csv(url)
+
+print(df.head())
+print(df.columns.tolist())
+
