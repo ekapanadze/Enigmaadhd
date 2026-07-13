@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 url = "https://raw.githubusercontent.com/MICA-MNI/ENIGMA/master/enigmatoolbox/datasets/summary_statistics/adhdadult_case-controls_CortThick.csv"
 df = pd.read_csv(url)
@@ -6,3 +7,12 @@ df = pd.read_csv(url)
 print(df.head())
 print(df.columns.tolist())
 
+top10 = df.reindex(df["d_icv"].abs().sort_values(ascending=False).index).head(10)
+
+plt.figure(figsize=(8, 5))
+plt.barh(top10["Structure"], top10["d_icv"])
+plt.xlabel("Cohen's d (effect size)")
+plt.title("Top 10 brain regions: ADHD vs controls (cortical thickness)")
+plt.tight_layout()
+plt.savefig("plot.png")
+print("Saved plot.png")
