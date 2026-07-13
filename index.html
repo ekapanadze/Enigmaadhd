@@ -23,6 +23,30 @@
   <p><strong>Data source:</strong> <a href="https://github.com/MICA-MNI/ENIGMA">ENIGMA Toolbox</a> (MICA-MNI).
   Analysis code and full pipeline: <a href="https://github.com/ekapanadze/Enigmaadhd">this repository</a>.</p>
 
+  <h2>Does age matter? Adult vs. adolescent ADHD</h2>
+<p>The chart above uses adult data only. But ENIGMA also has a separate adolescent
+cohort — so I compared the two to see whether ADHD affects the same brain regions
+regardless of age, or whether the pattern shifts.</p>
+
+<img src="age_comparison.png" alt="Scatter plot comparing adult and adolescent effect sizes per brain region">
+
+<p>Each point is one brain region. If a region were affected identically in both age
+groups, it would sit on the red dashed line. Across all 68 regions, the correlation
+between adult and adolescent effect sizes is just <strong>r = 0.38</strong> — a weak
+relationship, suggesting the regions ADHD affects are not fixed, but shift with age.</p>
+
+<p>The clearest example: <strong>bankssts</strong> (both hemispheres) shows almost no
+effect in adults (d ≈ 0.01) but a notable effect in adolescents (d = 0.16). The
+opposite pattern shows up in the <strong>parahippocampal</strong> region. Both flips
+appear on left and right sides independently, which makes them more likely to be a
+real pattern than noise.</p>
+
+<p><em>Caveat:</em> this compares two different groups of people (cross-sectional),
+not the same patients tracked over time — so it shows that adult and adolescent ADHD
+populations differ structurally, not that any individual's brain changes this way as
+they age. Differences in scanner sites and sample sizes between cohorts could also
+contribute.</p>
+
   <footer>Built by Elene Kapanadze while learning Python and reproducible neuroimaging analysis.</footer>
 </body>
 </html>

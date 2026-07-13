@@ -1,18 +1,40 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-url = "https://raw.githubusercontent.com/MICA-MNI/ENIGMA/master/enigmatoolbox/datasets/summary_statistics/adhdadult_case-controls_CortThick.csv"
-df = pd.read_csv(url)
+adult_url = "https://raw.githubusercontent.com/MICA-MNI/ENIGMA/master/enigmatoolbox/datasets/summary_statistics/adhdadult_case-controls_CortThick.csv"
+adolescent_url = "https://raw.githubusercontent.com/MICA-MNI/ENIGMA/master/enigmatoolbox/datasets/summary_statistics/adhdadolescent_case-controls_CortThick.csv"
 
-print(df.head())
-print(df.columns.tolist())
+adult = pd.read_csv(adult_url)
+adolescent = pd.read_csv(adolescent_url)
 
-top10 = df.reindex(df["d_icv"].abs().sort_values(ascending=False).index).head(10)
+# merge on brain region, keeping both age groups' effect sizes side by side
+merged = adult[["Structure", "d_icv"]].merge(
+    adolescent[["Structure", "d_icv"]],
+    on="Structure",
+    suffixes=("_adult", "_adolescent")
+)
 
-plt.figure(figsize=(8, 5))
-plt.barh(top10["Structure"], top10["d_icv"])
-plt.xlabel("Cohen's d (effect size)")
-plt.title("Top 10 brain regions: ADHD vs controls (cortical thickness)")
+# how different are the two age groups per region?
+merged["diff"] = merged["d_icv_adult"] - merged["d_icv_adolescent"]
+merged["abs_diff"] = merged["diff"].abs()
+
+correlation = merged["d_icv_adult"].corr(merged["d_icv_adolescent"])
+print(f"Correlation between adult and adolescent effect sizes: {correlation:.2f}")
+
+print("\nTop 5 regions where adult vs adolescent effects diverge most:")
+print(merged.sort_values("abs_diff", ascending=False)[["Structure", "d_icv_adult", "d_icv_adolescent", "diff"]].head())
+
+# scatter plot: does a region affected in adolescence stay affected in adulthood?
+plt.figure(figsize=(6, 6))
+plt.scatter(merged["d_icv_adolescent"], merged["d_icv_adult"], alpha=0.7)
+plt.axhline(0, color="grey", linewidth=0.5)
+plt.axvline(0, color="grey", linewidth=0.5)
+lims = [-0.35, 0.35]
+plt.plot(lims, lims, linestyle="--", color="red", linewidth=1, label="equal effect line")
+plt.xlabel("Adolescent Cohen's d")
+plt.ylabel("Adult Cohen's d")
+plt.title("ADHD cortical thickness effects: adolescent vs adult")
+plt.legend()
 plt.tight_layout()
-plt.savefig("plot.png")
-print("Saved plot.png")
+plt.savefig("age_comparison.png")
+print("\nSaved age_comparison.png")
