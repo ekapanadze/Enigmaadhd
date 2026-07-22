@@ -47,6 +47,14 @@ populations differ structurally, not that any individual's brain changes this wa
 they age. Differences in scanner sites and sample sizes between cohorts could also
 contribute.</p>
 
+<h2>Does this survive correction for multiple comparisons?</h2>
+<p>Testing 68 brain regions at once inflates the chance of false positives. Only 2 of the 68
+ regions are nominally significant (p &lt; 0.05) in adults before correction — and after applying
+ a Benjamini-Hochberg FDR correction, none survive at q &lt; 0.05. Same story in adolescents: 4
+ regions nominal, 0 surviving FDR. This mirrors the original ENIGMA-ADHD finding: individual
+ cortical effects are small and diffuse, which is precisely why consortium-scale sample sizes
+ (thousands of scans) are needed to detect them reliably.</p>
+<p><em>Analysis code: <a href="https://github.com/ekapanadze/Enigmaadhd/blob/main/analyze.py">analyze.py</a></em></p>
   <footer>Built by Elene Kapanadze, medical student exploring computational neuroscience and reproducible research methods.</footer>
 </body>
 </html>
