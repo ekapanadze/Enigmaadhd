@@ -38,3 +38,24 @@ plt.legend(handles=[red, blue], loc="lower right")
 plt.tight_layout()
 plt.savefig("plot.png")
 print("Saved plot.png")
+import plotly.graph_objects as go
+
+hover = [
+    f"{s}<br>Cohen's d: {d:.3f}<br>p: {p:.3f}<br>FDR q: {q:.3f}"
+    for s, d, p, q in zip(top10["Structure"], top10["d_icv"], top10["pobs"], top10["fdr_q"])
+]
+
+fig = go.Figure(go.Bar(
+    x=top10["d_icv"], y=top10["Structure"], orientation="h",
+    marker_color=colors, hovertext=hover, hoverinfo="text"
+))
+fig.update_layout(
+    title="Top 10 brain regions by effect size (adult ADHD vs. controls)",
+    xaxis_title="Cohen's d",
+    yaxis=dict(autorange="reversed"),
+    template="plotly_white",
+    height=500,
+)
+fig.add_vline(x=0, line_color="grey", line_width=0.5)
+fig.write_html("interactive_plot.html", include_plotlyjs="cdn")
+print("Saved interactive_plot.html")
