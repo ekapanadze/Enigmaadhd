@@ -13,25 +13,6 @@
 <body>
   <h1>ENIGMA-ADHD: Brain Structure Differences</h1>
   <p>This reproduces case-control cortical thickness effect sizes from the ENIGMA-ADHD Working Group
-  (Hoogman et al., 2017, 
-
-
-cat > index.html << 'EOF'
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ENIGMA-ADHD Explorer</title>
-  <style>
-    body { font-family: -apple-system, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; line-height: 1.5; }
-    iframe { width: 100%; height: 520px; border: 1px solid #ddd; border-radius: 6px; }
-    footer { margin-top: 40px; font-size: 0.9em; color: #666; }
-  </style>
-</head>
-<body>
-  <h1>ENIGMA-ADHD: Brain Structure Differences</h1>
-  <p>This reproduces case-control cortical thickness effect sizes from the ENIGMA-ADHD Working Group
   (Hoogman et al., 2017, <em>Lancet Psychiatry</em>), using publicly available summary statistics.</p>
 
   <p>This project reproduces the core cortical thickness effect-size analysis from Hoogman et al. (2017, ENIGMA-ADHD) using their public summary statistics; the FDR correction, age-group comparison, and interactive visualizations are my own extensions.</p>
@@ -39,9 +20,9 @@ cat > index.html << 'EOF'
   <p>Tools: Python (pandas, scipy/statsmodels for FDR correction, matplotlib, Plotly)</p>
 
   <iframe src="interactive_plot.html" title="Interactive bar chart of top 10 brain regions by effect size"></iframe>
-  <p>Hover over bars for exact values. <a href="interactive_plot.html" target="_blank">Open in a new tab →</a></p>
+  <p>Hover over bars for exact values. <a href="interactive_plot.html" target="_blank">Open in a new tab -&gt;</a></p>
 
-  <p>Each bar shows Cohen's <em>d</em> for cortical thickness differences between ADHD patients and controls
+  <p>Each bar shows Cohen\'s <em>d</em> for cortical thickness differences between ADHD patients and controls
   in adults. Positive values mean thicker cortex in ADHD; negative means thinner.</p>
 
   <p><strong>Data source:</strong> <a href="https://github.com/MICA-MNI/ENIGMA">ENIGMA Toolbox</a> (MICA-MNI).
@@ -49,32 +30,32 @@ cat > index.html << 'EOF'
 
   <h2>Does age matter? Adult vs. adolescent ADHD</h2>
 <p>The chart above uses adult data only. But ENIGMA also has a separate adolescent
-cohort — so I compared the two to see whether ADHD affects the same brain regions
+cohort so I compared the two to see whether ADHD affects the same brain regions
 regardless of age, or whether the pattern shifts.</p>
 
 <iframe src="age_comparison_interactive.html" title="Interactive scatter plot comparing adult and adolescent effect sizes"></iframe>
-<p>Hover over points for exact values. <a href="age_comparison_interactive.html" target="_blank">Open in a new tab →</a></p>
+<p>Hover over points for exact values. <a href="age_comparison_interactive.html" target="_blank">Open in a new tab -&gt;</a></p>
 
 <p>Each point is one brain region. If a region were affected identically in both age
 groups, it would sit on the red dashed line. Across all 68 regions, the correlation
-between adult and adolescent effect sizes is just <strong>r = 0.38</strong> — a weak
+between adult and adolescent effect sizes is just <strong>r = 0.38</strong> a weak
 relationship, suggesting the regions ADHD affects are not fixed, but shift with age.</p>
 
 <p>The clearest example: <strong>bankssts</strong> (both hemispheres) shows almost no
-effect in adults (d ≈ 0.01) but a notable effect in adolescents (d = 0.16). The
+effect in adults (d is about 0.01) but a notable effect in adolescents (d = 0.16). The
 opposite pattern shows up in the <strong>parahippocampal</strong> region. Both flips
 appear on left and right sides independently, which makes them more likely to be a
 real pattern than noise.</p>
 
 <p><em>Caveat:</em> this compares two different groups of people (cross-sectional),
-not the same patients tracked over time — so it shows that adult and adolescent ADHD
-populations differ structurally, not that any individual's brain changes this way as
+not the same patients tracked over time so it shows that adult and adolescent ADHD
+populations differ structurally, not that any individual\'s brain changes this way as
 they age. Differences in scanner sites and sample sizes between cohorts could also
 contribute.</p>
 
 <h2>Does this survive correction for multiple comparisons?</h2>
 <p>Testing 68 brain regions at once inflates the chance of false positives. Only 2 of the 68
- regions are nominally significant (p &lt; 0.05) in adults before correction — and after applying
+ regions are nominally significant (p &lt; 0.05) in adults before correction and after applying
  a Benjamini-Hochberg FDR correction, none survive at q &lt; 0.05. Same story in adolescents: 4
  regions nominal, 0 surviving FDR. This mirrors the original ENIGMA-ADHD finding: individual
  cortical effects are small and diffuse, which is precisely why consortium-scale sample sizes
