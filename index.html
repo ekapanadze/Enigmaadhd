@@ -7,6 +7,7 @@
   <style>
     body { font-family: -apple-system, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; line-height: 1.5; }
     img { max-width: 100%; border: 1px solid #ddd; border-radius: 6px; }
+    iframe { width: 100%; height: 520px; border: 1px solid #ddd; border-radius: 6px; }
     footer { margin-top: 40px; font-size: 0.9em; color: #666; }
   </style>
 </head>
@@ -15,10 +16,17 @@
   <p>This reproduces case-control cortical thickness effect sizes from the ENIGMA-ADHD Working Group
   (Hoogman et al., 2017, <em>Lancet Psychiatry</em>), using publicly available summary statistics.</p>
 
-  <img src="plot.png" alt="Top 10 brain regions by effect size">
+  <p>This project reproduces the core cortical thickness effect-size analysis from Hoogman et al. (2017, ENIGMA-ADHD) using their public summary statistics; the FDR correction, age-group comparison, and interactive visualizations are my own extensions.</p>
+
+  <p>Tools: Python (pandas, scipy/statsmodels for FDR correction, matplotlib, Plotly)</p>
+
+  <iframe src="interactive_plot.html" title="Interactive bar chart of top 10 brain regions by effect size"></iframe>
+  <p><a href="interactive_plot.html" target="_blank">Open interactive chart in a new tab →</a></p>
+
+  <img src="plot.png" alt="Top 10 brain regions by effect size (static version)">
 
   <p>Each bar shows Cohen's <em>d</em> for cortical thickness differences between ADHD patients and controls
-  in adults. Positive values mean thicker cortex in ADHD; negative means thinner. <a href="interactive_plot.html">Explore the interactive version →</a></p>
+  in adults. Positive values mean thicker cortex in ADHD; negative means thinner.</p>
 
   <p><strong>Data source:</strong> <a href="https://github.com/MICA-MNI/ENIGMA">ENIGMA Toolbox</a> (MICA-MNI).
   Analysis code and full pipeline: <a href="https://github.com/ekapanadze/Enigmaadhd">this repository</a>.</p>
@@ -28,7 +36,8 @@
 cohort — so I compared the two to see whether ADHD affects the same brain regions
 regardless of age, or whether the pattern shifts.</p>
 
-<img src="age_comparison.png" alt="Scatter plot comparing adult and adolescent effect sizes per brain region">
+<iframe src="age_comparison_interactive.html" title="Interactive scatter plot comparing adult and adolescent effect sizes"></iframe>
+<p><a href="age_comparison_interactive.html" target="_blank">Open interactive chart in a new tab →</a></p>
 
 <p>Each point is one brain region. If a region were affected identically in both age
 groups, it would sit on the red dashed line. Across all 68 regions, the correlation
