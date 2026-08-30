@@ -7,8 +7,8 @@
   <style>
     body { font-family: -apple-system, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; line-height: 1.5; }
     iframe { width: 100%; height: 520px; border: 1px solid #ddd; border-radius: 6px; }
-    .chart-btn { display: inline-block; margin-top: 8px; padding: 10px 18px; background: #1f6feb; color: white; text-decoration: none; border-radius: 6px; font-size: 0.95em; }
-    .chart-btn:hover { background: #1a5fc4; }
+    .chart-wrap { position: relative; }
+    .fs-btn { position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,0.9); border: 1px solid #ddd; border-radius: 4px; width: 32px; height: 32px; font-size: 16px; cursor: pointer; }
     footer { margin-top: 40px; font-size: 0.9em; color: #666; }
     @media (max-width: 480px) {
       iframe { height: 400px; }
@@ -24,10 +24,13 @@
 
   <p>Tools: Python (pandas, scipy/statsmodels for FDR correction, matplotlib, Plotly)</p>
 
-  <iframe src="interactive_plot.html" title="Interactive bar chart of top 10 brain regions by effect size"></iframe>
-  <p>Hover over bars for exact values.<br><a href="interactive_plot.html" target="_blank" class="chart-btn">Open full chart -&gt;</a></p>
+  <div class="chart-wrap">
+    <iframe id="chart1" src="interactive_plot.html" title="Interactive bar chart of top 10 brain regions by effect size"></iframe>
+    <button class="fs-btn" onclick="document.getElementById(\'chart1\').requestFullscreen()">&#9974;</button>
+  </div>
+  <p>Hover over bars for exact values. <a href="interactive_plot.html" target="_blank">Open in a new tab -&gt;</a></p>
 
-  <p>Each bar shows Cohen's <em>d</em> for cortical thickness differences between ADHD patients and controls
+  <p>Each bar shows Cohen\'s <em>d</em> for cortical thickness differences between ADHD patients and controls
   in adults. Positive values mean thicker cortex in ADHD; negative means thinner.</p>
 
   <p><strong>Data source:</strong> <a href="https://github.com/MICA-MNI/ENIGMA">ENIGMA Toolbox</a> (MICA-MNI).
@@ -38,8 +41,11 @@
 cohort so I compared the two to see whether ADHD affects the same brain regions
 regardless of age, or whether the pattern shifts.</p>
 
-<iframe src="age_comparison_interactive.html" title="Interactive scatter plot comparing adult and adolescent effect sizes"></iframe>
-<p>Hover over points for exact values.<br><a href="age_comparison_interactive.html" target="_blank" class="chart-btn">Open full chart -&gt;</a></p>
+<div class="chart-wrap">
+  <iframe id="chart2" src="age_comparison_interactive.html" title="Interactive scatter plot comparing adult and adolescent effect sizes"></iframe>
+  <button class="fs-btn" onclick="document.getElementById(\'chart2\').requestFullscreen()">&#9974;</button>
+</div>
+<p>Hover over points for exact values. <a href="age_comparison_interactive.html" target="_blank">Open in a new tab -&gt;</a></p>
 
 <p>Each point is one brain region. If a region were affected identically in both age
 groups, it would sit on the red dashed line. Across all 68 regions, the correlation
@@ -54,7 +60,7 @@ real pattern than noise.</p>
 
 <p><em>Caveat:</em> this compares two different groups of people (cross-sectional),
 not the same patients tracked over time so it shows that adult and adolescent ADHD
-populations differ structurally, not that any individual's brain changes this way as
+populations differ structurally, not that any individual\'s brain changes this way as
 they age. Differences in scanner sites and sample sizes between cohorts could also
 contribute.</p>
 
