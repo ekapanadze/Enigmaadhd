@@ -25,8 +25,8 @@
   <p>Tools: Python (pandas, scipy/statsmodels for FDR correction, matplotlib, Plotly)</p>
 
   <div class="chart-wrap">
-    <iframe id="chart1" src="interactive_plot.html" title="Interactive bar chart of top 10 brain regions by effect size"></iframe>
-    <button class="fs-btn" onclick="document.getElementById('chart1').requestFullscreen()">&#9974;</button>
+    <iframe id="chart1" src="interactive_plot.html" title="Interactive bar chart of top 10 brain regions by effect size" allowfullscreen></iframe>
+    <button class="fs-btn" onclick="var f=document.getElementById('chart1'); if(f.requestFullscreen){f.requestFullscreen();} else {window.open('interactive_plot.html','_blank');}">&#9974;</button>
   </div>
   <p>Hover over bars for exact values. <a href="interactive_plot.html" target="_blank">Open in a new tab -&gt;</a></p>
 
@@ -42,8 +42,8 @@ cohort so I compared the two to see whether ADHD affects the same brain regions
 regardless of age, or whether the pattern shifts.</p>
 
 <div class="chart-wrap">
-  <iframe id="chart2" src="age_comparison_interactive.html" title="Interactive scatter plot comparing adult and adolescent effect sizes"></iframe>
-  <button class="fs-btn" onclick="document.getElementById('chart2').requestFullscreen()">&#9974;</button>
+  <iframe id="chart2" src="age_comparison_interactive.html" title="Interactive scatter plot comparing adult and adolescent effect sizes" allowfullscreen></iframe>
+  <button class="fs-btn" onclick="var f=document.getElementById('chart2'); if(f.requestFullscreen){f.requestFullscreen();} else {window.open('age_comparison_interactive.html','_blank');}">&#9974;</button>
 </div>
 <p>Hover over points for exact values. <a href="age_comparison_interactive.html" target="_blank">Open in a new tab -&gt;</a></p>
 
