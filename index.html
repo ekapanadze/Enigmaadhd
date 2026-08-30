@@ -9,6 +9,10 @@
     iframe { width: 100%; height: 520px; border: 1px solid #ddd; border-radius: 6px; }
     .chart-wrap { position: relative; }
     .fs-btn { position: absolute; top: 8px; left: 8px; background: rgba(255,255,255,0.9); border: 1px solid #ddd; border-radius: 4px; width: 32px; height: 32px; font-size: 16px; cursor: pointer; }
+    .results-table { width: 100%; border-collapse: collapse; margin: 14px 0 4px; font-size: 0.92em; }
+    .results-table th, .results-table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #eee; }
+    .results-table th { color: #444; font-weight: 600; }
+    .table-note { font-size: 0.85em; color: #888; margin-top: 4px; }
     footer { margin-top: 40px; font-size: 0.9em; color: #666; }
     @media (max-width: 480px) {
       iframe { height: 400px; }
@@ -17,10 +21,10 @@
 </head>
 <body>
   <h1>ENIGMA-ADHD: Brain Structure Differences</h1>
-  <p>This reproduces case-control cortical thickness effect sizes from the ENIGMA-ADHD Working Group
+  <p><strong>What this is:</strong> This reproduces case-control cortical thickness effect sizes from the ENIGMA-ADHD Working Group
   (Hoogman et al., 2017, <em>Lancet Psychiatry</em>), using publicly available summary statistics.</p>
 
-  <p>This project reproduces the core cortical thickness effect-size analysis from Hoogman et al. (2017, ENIGMA-ADHD) using their public summary statistics; the FDR correction, age-group comparison, and interactive visualizations are my own extensions.</p>
+  <p><strong>What's original:</strong> the FDR correction, the adult-vs-adolescent age-group comparison, and the interactive visualizations are my own extensions of the published analysis.</p>
 
   <p>Tools: Python (pandas, scipy/statsmodels for FDR correction, matplotlib, Plotly)</p>
 
@@ -28,7 +32,26 @@
     <iframe id="chart1" src="interactive_plot.html" title="Interactive bar chart of top 10 brain regions by effect size" allowfullscreen></iframe>
     <button class="fs-btn" onclick="var f=document.getElementById('chart1'); if(f.requestFullscreen){f.requestFullscreen();} else {window.open('interactive_plot.html','_blank');}">&#9974;</button>
   </div>
-  <p>Hover over bars for exact values. <a href="interactive_plot.html" target="_blank">Open in a new tab -&gt;</a></p>
+  <p>Hover over bars for exact values. <a href="interactive_plot.html" target="_blank">Open in a new tab &rarr;</a></p>
+
+  <table class="results-table">
+    <thead>
+      <tr><th>Region</th><th>Cohen's d</th><th>p</th><th>FDR q</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>R_lateraloccipital</td><td>0.140</td><td>0.020</td><td>0.437 *</td></tr>
+      <tr><td>L_lateraloccipital</td><td>0.140</td><td>0.020</td><td>0.437 *</td></tr>
+      <tr><td>L_caudalanteriorcingulate</td><td>-0.110</td><td>0.060</td><td>0.437</td></tr>
+      <tr><td>L_cuneus</td><td>0.110</td><td>0.060</td><td>0.437</td></tr>
+      <tr><td>R_posteriorcingulate</td><td>-0.110</td><td>0.050</td><td>0.437</td></tr>
+      <tr><td>R_lingual</td><td>0.110</td><td>0.070</td><td>0.437</td></tr>
+      <tr><td>R_caudalanteriorcingulate</td><td>-0.110</td><td>0.060</td><td>0.437</td></tr>
+      <tr><td>L_lingual</td><td>0.110</td><td>0.070</td><td>0.437</td></tr>
+      <tr><td>R_cuneus</td><td>0.110</td><td>0.060</td><td>0.437</td></tr>
+      <tr><td>L_posteriorcingulate</td><td>-0.110</td><td>0.050</td><td>0.437</td></tr>
+    </tbody>
+  </table>
+  <p class="table-note">* p &lt; 0.05 uncorrected &nbsp;&nbsp; ** survives FDR q &lt; 0.05</p>
 
   <p>Each bar shows Cohen's <em>d</em> for cortical thickness differences between ADHD patients and controls
   in adults. Positive values mean thicker cortex in ADHD; negative means thinner.</p>
@@ -38,40 +61,59 @@
 
   <h2>Does age matter? Adult vs. adolescent ADHD</h2>
 <p>The chart above uses adult data only. But ENIGMA also has a separate adolescent
-cohort so I compared the two to see whether ADHD affects the same brain regions
+cohort &mdash; so I compared the two to see whether ADHD affects the same brain regions
 regardless of age, or whether the pattern shifts.</p>
 
 <div class="chart-wrap">
   <iframe id="chart2" src="age_comparison_interactive.html" title="Interactive scatter plot comparing adult and adolescent effect sizes" allowfullscreen></iframe>
   <button class="fs-btn" onclick="var f=document.getElementById('chart2'); if(f.requestFullscreen){f.requestFullscreen();} else {window.open('age_comparison_interactive.html','_blank');}">&#9974;</button>
 </div>
-<p>Hover over points for exact values. <a href="age_comparison_interactive.html" target="_blank">Open in a new tab -&gt;</a></p>
+<p>Hover over points for exact values. <a href="age_comparison_interactive.html" target="_blank">Open in a new tab &rarr;</a></p>
+
+<table class="results-table">
+  <thead>
+    <tr><th>Region</th><th>Adult d</th><th>Adolescent d</th><th>Diff</th></tr>
+  </thead>
+  <tbody>
+      <tr><td>R_parahippocampal</td><td>0.100</td><td>-0.050</td><td>+0.150</td></tr>
+      <tr><td>L_parahippocampal</td><td>0.100</td><td>-0.050</td><td>+0.150</td></tr>
+      <tr><td>L_bankssts</td><td>0.010</td><td>0.160</td><td>-0.150</td></tr>
+      <tr><td>R_bankssts</td><td>0.010</td><td>0.160</td><td>-0.150</td></tr>
+      <tr><td>R_lateralorbitofrontal</td><td>0.030</td><td>-0.120</td><td>+0.150</td></tr>
+      <tr><td>L_lateralorbitofrontal</td><td>0.030</td><td>-0.120</td><td>+0.150</td></tr>
+      <tr><td>L_lingual</td><td>0.110</td><td>-0.030</td><td>+0.140</td></tr>
+      <tr><td>R_lingual</td><td>0.110</td><td>-0.030</td><td>+0.140</td></tr>
+      <tr><td>L_cuneus</td><td>0.110</td><td>-0.010</td><td>+0.120</td></tr>
+      <tr><td>R_cuneus</td><td>0.110</td><td>-0.010</td><td>+0.120</td></tr>
+  </tbody>
+</table>
+<p class="table-note">Top 10 regions by largest adult&ndash;adolescent divergence.</p>
 
 <p>Each point is one brain region. If a region were affected identically in both age
 groups, it would sit on the red dashed line. Across all 68 regions, the correlation
-between adult and adolescent effect sizes is just <strong>r = 0.38</strong> a weak
+between adult and adolescent effect sizes is just <strong>r = 0.38</strong> &mdash; a weak
 relationship, suggesting the regions ADHD affects are not fixed, but shift with age.</p>
 
 <p>The clearest example: <strong>bankssts</strong> (both hemispheres) shows almost no
-effect in adults (d is about 0.01) but a notable effect in adolescents (d = 0.16). The
+effect in adults (d &asymp; 0.01) but a notable effect in adolescents (d = 0.16). The
 opposite pattern shows up in the <strong>parahippocampal</strong> region. Both flips
 appear on left and right sides independently, which makes them more likely to be a
 real pattern than noise.</p>
 
 <p><em>Caveat:</em> this compares two different groups of people (cross-sectional),
-not the same patients tracked over time so it shows that adult and adolescent ADHD
+not the same patients tracked over time &mdash; so it shows that adult and adolescent ADHD
 populations differ structurally, not that any individual's brain changes this way as
 they age. Differences in scanner sites and sample sizes between cohorts could also
 contribute.</p>
 
 <h2>Does this survive correction for multiple comparisons?</h2>
 <p>Testing 68 brain regions at once inflates the chance of false positives. Only 2 of the 68
- regions are nominally significant (p &lt; 0.05) in adults before correction and after applying
+ regions are nominally significant (p &lt; 0.05) in adults before correction &mdash; and after applying
  a Benjamini-Hochberg FDR correction, none survive at q &lt; 0.05. Same story in adolescents: 4
  regions nominal, 0 surviving FDR. This mirrors the original ENIGMA-ADHD finding: individual
  cortical effects are small and diffuse, which is precisely why consortium-scale sample sizes
  (thousands of scans) are needed to detect them reliably.</p>
 <p><em>Analysis code: <a href="https://github.com/ekapanadze/Enigmaadhd/blob/main/analyze.py">analyze.py</a></em></p>
-  <footer>Built by Elene Kapanadze, medical student exploring computational neuroscience and reproducible research methods.</footer>
+  <footer>Elene Kapanadze &mdash; MD Candidate, Tbilisi Medical Academy.</footer>
 </body>
 </html>
