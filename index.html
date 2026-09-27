@@ -22,9 +22,9 @@
 <body>
   <h1>ENIGMA-ADHD: Brain Structure Differences</h1>
   <p><strong>What this is:</strong> This reproduces case-control cortical thickness effect sizes from the ENIGMA-ADHD Working Group
-  (Hoogman et al., 2017, <em>Lancet Psychiatry</em>), using publicly available summary statistics.</p>
+  (Hoogman et al., 2019, <em>American Journal of Psychiatry</em>), using publicly available summary statistics.</p>
 
-  <p><strong>What's original:</strong> the FDR correction, the adult-vs-adolescent age-group comparison, and the interactive visualizations are my own extensions of the published analysis.</p>
+  <p><strong>What's original:</strong> the adult-vs-adolescent age-group comparison and the interactive visualizations are my own extensions of the published analysis; I also re-applied the FDR correction myself.</p>
 
   <p>Tools: Python (pandas, scipy/statsmodels for FDR correction, matplotlib, Plotly)</p>
 
@@ -39,15 +39,10 @@
       <tr><th>Region</th><th>Cohen's d</th><th>p</th><th>FDR q</th></tr>
     </thead>
     <tbody>
-      <tr><td>R_lateraloccipital</td><td>0.140</td><td>0.020</td><td>0.437 *</td></tr>
       <tr><td>L_lateraloccipital</td><td>0.140</td><td>0.020</td><td>0.437 *</td></tr>
       <tr><td>L_caudalanteriorcingulate</td><td>-0.110</td><td>0.060</td><td>0.437</td></tr>
       <tr><td>L_cuneus</td><td>0.110</td><td>0.060</td><td>0.437</td></tr>
-      <tr><td>R_posteriorcingulate</td><td>-0.110</td><td>0.050</td><td>0.437</td></tr>
-      <tr><td>R_lingual</td><td>0.110</td><td>0.070</td><td>0.437</td></tr>
-      <tr><td>R_caudalanteriorcingulate</td><td>-0.110</td><td>0.060</td><td>0.437</td></tr>
       <tr><td>L_lingual</td><td>0.110</td><td>0.070</td><td>0.437</td></tr>
-      <tr><td>R_cuneus</td><td>0.110</td><td>0.060</td><td>0.437</td></tr>
       <tr><td>L_posteriorcingulate</td><td>-0.110</td><td>0.050</td><td>0.437</td></tr>
     </tbody>
   </table>
@@ -75,30 +70,23 @@ regardless of age, or whether the pattern shifts.</p>
     <tr><th>Region</th><th>Adult d</th><th>Adolescent d</th><th>Diff</th></tr>
   </thead>
   <tbody>
-      <tr><td>R_parahippocampal</td><td>0.100</td><td>-0.050</td><td>+0.150</td></tr>
       <tr><td>L_parahippocampal</td><td>0.100</td><td>-0.050</td><td>+0.150</td></tr>
       <tr><td>L_bankssts</td><td>0.010</td><td>0.160</td><td>-0.150</td></tr>
-      <tr><td>R_bankssts</td><td>0.010</td><td>0.160</td><td>-0.150</td></tr>
-      <tr><td>R_lateralorbitofrontal</td><td>0.030</td><td>-0.120</td><td>+0.150</td></tr>
       <tr><td>L_lateralorbitofrontal</td><td>0.030</td><td>-0.120</td><td>+0.150</td></tr>
       <tr><td>L_lingual</td><td>0.110</td><td>-0.030</td><td>+0.140</td></tr>
-      <tr><td>R_lingual</td><td>0.110</td><td>-0.030</td><td>+0.140</td></tr>
       <tr><td>L_cuneus</td><td>0.110</td><td>-0.010</td><td>+0.120</td></tr>
-      <tr><td>R_cuneus</td><td>0.110</td><td>-0.010</td><td>+0.120</td></tr>
   </tbody>
 </table>
-<p class="table-note">Top 10 regions by largest adult&ndash;adolescent divergence.</p>
+<p class="table-note">Top 5 regions by largest adult&ndash;adolescent divergence. ENIGMA-ADHD reports bilateral values, so left and right hemispheres are identical in the source data.</p>
 
 <p>Each point is one brain region. If a region were affected identically in both age
-groups, it would sit on the red dashed line. Across all 68 regions, the correlation
+groups, it would sit on the red dashed line. Across all 34 regions, the correlation
 between adult and adolescent effect sizes is just <strong>r = 0.38</strong> - a weak
 relationship, suggesting the regions ADHD affects are not fixed, but shift with age.</p>
 
-<p>The clearest example: <strong>bankssts</strong> (both hemispheres) shows almost no
+<p>The clearest example: <strong>bankssts</strong> shows almost no
 effect in adults (d &asymp; 0.01) but a notable effect in adolescents (d = 0.16). The
-opposite pattern shows up in the <strong>parahippocampal</strong> region. Both flips
-appear on left and right sides independently, which makes them more likely to be a
-real pattern than noise.</p>
+opposite pattern shows up in the <strong>parahippocampal</strong> region. These are single effect sizes from moderate samples, so they should be treated as hypotheses, not findings.</p>
 
 <p><em>Caveat:</em> this compares two different groups of people (cross-sectional),
 not the same patients tracked over time - so it shows that adult and adolescent ADHD
@@ -107,10 +95,7 @@ they age. Differences in scanner sites and sample sizes between cohorts could al
 contribute.</p>
 
 <h2>Does this survive correction for multiple comparisons?</h2>
-<p>Testing 68 brain regions at once inflates the chance of false positives. Only 2 of the 68
- regions are nominally significant (p &lt; 0.05) in adults before correction - and after applying
- a Benjamini-Hochberg FDR correction, none survive at q &lt; 0.05. Same story in adolescents: 4
- regions nominal, 0 surviving FDR. This mirrors the original ENIGMA-ADHD finding: individual
+<p>ENIGMA-ADHD reports bilateral thickness values for 34 cortical regions, so correction was applied across 34 tests. Only 1 of 34 regions is nominally significant (p &lt; 0.05) in adults, and after re-applying a Benjamini-Hochberg FDR correction, none survive at q &lt; 0.05. Same in adolescents: 2 regions nominal, 0 surviving FDR. This mirrors the original ENIGMA-ADHD finding: individual
  cortical effects are small and diffuse, which is precisely why consortium-scale sample sizes
  (thousands of scans) are needed to detect them reliably.</p>
 <p><em>Analysis code: <a href="https://github.com/ekapanadze/Enigmaadhd/blob/main/analyze.py">analyze.py</a></em></p>
